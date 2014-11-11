@@ -12,7 +12,7 @@
         var $inputs = $('.field-type-taxonomy-term-reference input[type="text"]'),
           block = false;
         $inputs/*.css('color', '#fff')*/.wrap('<div class="suitcase-tag-input-text-wrapper"></div>');
-        $('.suitcase-tag-input-text-wrapper').append('<div class="tags-container"><div class="add-tag"><input type="text" value=""></div></div><select class="term-autocomplete-select" style="display: none"></select>');
+        $('.suitcase-tag-input-text-wrapper').append('<div class="tags-container"><div class="add-tag"><input type="text" value=""></div></div><div class="term-autocomplete-select" style="display: none"></div>');
         $inputs.each(function(i, val) {
           var arr = $(this).val().split(",");
           for(var i=arr.length-1;i>-1;i--) {
@@ -33,29 +33,22 @@
             $.get('http://local.dev/ent/taxonomy/autocomplete/field_tags/' + encodeURI($(this).find('input').val()),
             function(data) {
               console.log(data);
-              var $s = $(thiss).parent().parent().find('select');
+              var $s = $(thiss).parent().parent().find('.term-autocomplete-select');
               console.log($s);
               for(var d in data) {
-                $s.append('<option>'+d+'</option>');
+                $s.append('<div>'+d+'</div>');
               }
-              $s.change(function(e) {
-                //console.log($(this).find('option:selected').text());
-                console.log(this.value);
-                $(this).hide();
-              }).click(function() {
+              $s.click(function(e) {
+                console.log(e.target.innerHTML);
                 $(this).find('input').val('');
-                console.log('hello');
+                $(this).hide();
               });
               $s.show();
-              console.log($s.length);
-              $s.attr('size', 5);
             });
           }
         }).focusout(function(e) {
           // Clicked elsewhere, add to tags
-          if(!block) {
-            console.log('focusout');
-            console.log(e.target);
+          if(!block && !$('.term-autocomplet-select > div').is(':focus')) {
             processNewTag(this);
             block = false;
           }

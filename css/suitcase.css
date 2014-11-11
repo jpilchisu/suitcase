@@ -1621,6 +1621,27 @@ aside ::-webkit-scrollbar-thumb,
     cursor: pointer;
 }
 
+.field-type-taxonomy-term-reference .term-autocomplete-select {
+    background: #fff;
+    border: 1px solid #ddd;
+    z-index: 1;
+    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.field-type-taxonomy-term-reference .term-autocomplete-select > div {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.field-type-taxonomy-term-reference .term-autocomplete-select > div:hover {
+    cursor: pointer;
+    background: #3071a9;
+    color: #fff;
+}
+
 /*///////////////////////////////////////////////////////////////////////////////*/
 /*///////////////////////////////////////////////////////////////////////////////*/
 /* GLOBAL STYLING END */
