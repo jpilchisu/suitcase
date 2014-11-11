@@ -1566,6 +1566,61 @@ aside ::-webkit-scrollbar-thumb,
     clear: both;
 }
 
+/*////////////////////////////////////*/
+/* Field Taxonomy Term Reference */
+.field-type-taxonomy-term-reference [type="text"] {
+    width: 100%;
+}
+
+.field-type-taxonomy-term-reference .suitcase-tag-input-text-wrapper {
+    position: relative;
+}
+
+.field-type-taxonomy-term-reference .suitcase-tag-input-text-wrapper .tags-container {
+    float: left;
+    position: absolute;
+    top: 9px;
+    margin-left: 3px;
+    width: 98%;
+}
+
+.field-type-taxonomy-term-reference .suitcase-tag-input-text-wrapper .tags-container .add-tag {
+    display: inline-block;
+}
+
+.field-type-taxonomy-term-reference .suitcase-tag-input-text-wrapper .tags-container .add-tag input {
+    margin: 0;
+    padding: 0;
+    height: 2em;
+    background: transparent;
+    border: none;
+}
+
+.field-type-taxonomy-term-reference .suitcase-tag-input-text-wrapper .tags-container .add-tag input:focus {
+    box-shadow: none;
+}
+
+.field-type-taxonomy-term-reference .suitcase-tag-input-tag {
+    display: inline-block;
+    padding: 5px;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+    background: #3071a9;
+    transition: background-color 0.1s ease;
+    color: #fff;
+    margin-right: 3px;
+}
+
+.field-type-taxonomy-term-reference .suitcase-tag-input-tag .remove {
+    font-size: 13px;
+    padding: 2px 3px;
+}
+
+.field-type-taxonomy-term-reference .suitcase-tag-input-tag .remove:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
 /*///////////////////////////////////////////////////////////////////////////////*/
 /*///////////////////////////////////////////////////////////////////////////////*/
 /* GLOBAL STYLING END */
