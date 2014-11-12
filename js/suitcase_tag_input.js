@@ -21,7 +21,7 @@
             }
           }
         });
-        $('.tags-container').click(function() {
+        $('.suitcase-tag-input-text-wrapper').click(function() {
           $(this).find('.add-tag input').focus();
         });
         $('.add-tag').keyup(function(e) {
@@ -48,13 +48,16 @@
               $s.show();
             });
           }
-        }).focus(function(e) {
+        });
+
+        $('.suitcase-tag-input-text-wrapper').focus(function(e) {
           $(this).bind('focusout',function(e) {
             // Clicked elsewhere, add to tags
             console.log(e);
+            console.log($(':focus'));
             if(!block) {
               console.log(this);
-              processNewTag(this);
+              processNewTag($(this).find('.add-tag'));
             }
             block=false;
             $(this).unbind('focusout');
@@ -80,6 +83,7 @@
             var t = $(el).parent().parent().find('.form-text').val() + ',' + $(el).find('input').val();
             $(el).parent().parent().find('.form-text').val(t);
             $(el).find('input').val('');
+            $(el).parent().parent().find('.term-autocomplete-select').hide().empty();
           }
         }
       });
