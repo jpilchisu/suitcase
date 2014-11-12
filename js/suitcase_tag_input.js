@@ -30,29 +30,49 @@
             processNewTag(this);
           } else {
             var thiss = this;
+            var $s = $(this).parent().parent().find('.term-autocomplete-select');
             $.get('http://local.dev/ent/taxonomy/autocomplete/field_tags/' + encodeURI($(this).find('input').val()),
             function(data) {
-              console.log(data);
-              var $s = $(thiss).parent().parent().find('.term-autocomplete-select');
-              console.log($s);
+              //$(thiss).unbind('focusout');
               for(var d in data) {
-                $s.append('<div>'+d+'</div>');
+                var $e = $('<div>'+d+'</div>')
+                  .click(function() {
+                    addTag($(this).parent().parent().find('.tags-container'),0,$(this).text());
+                    var t = $(this).parent().parent().find('.form-text').val() + ',' + $(this).text();
+                    $(this).parent().parent().find('.form-text').val(t);
+                    $(thiss).find('input').val('');
+                    $s.hide().empty();
+                  });
+                $s.append($e);
               }
-              $s.click(function(e) {
-                console.log(e.target.innerHTML);
-                $(this).find('input').val('');
-                $(this).hide();
-              });
               $s.show();
             });
           }
-        }).focusout(function(e) {
-          // Clicked elsewhere, add to tags
-          if(!block && !$('.term-autocomplet-select > div').is(':focus')) {
-            processNewTag(this);
-            block = false;
-          }
+        }).focus(function(e) {
+          $(this).bind('focusout',function(e) {
+            // Clicked elsewhere, add to tags
+            console.log(e);
+            if(!block) {
+              console.log(this);
+              processNewTag(this);
+            }
+            block=false;
+            $(this).unbind('focusout');
+          });
         });
+
+        function addTag($tagscontainer, i, text) {
+          var $e = $('<span class="suitcase-tag-input-tag">' + text + ' <span class="remove">x</span></span>');
+          $e.find('.remove').click(function(e) {
+            // Remove tag
+            var arr = $(this).parent().parent().parent().find('.form-text').val().split(",");
+            arr.splice($(this).parent().index(),1);
+            $(this).parent().parent().parent().find('.form-text').val(arr.join());
+            $(this).parent().remove();
+            block = true;
+          });
+          $tagscontainer.find('.add-tag').before($e);
+        }
 
         function processNewTag(el) {
           if($(el).find('input').val() != "") {
@@ -61,20 +81,6 @@
             $(el).parent().parent().find('.form-text').val(t);
             $(el).find('input').val('');
           }
-        }
-
-        function addTag($tagscontainer, i, text) {
-          var $e = $('<span class="suitcase-tag-input-tag">' + text + ' <span class="remove">x</span></span>');
-          $e.find('.remove').click(function(e) {
-            // Remove tag
-            console.log($(this).parent().index());
-            var arr = $(this).parent().parent().parent().find('.form-text').val().split(",");
-            arr.splice($(this).parent().index(),1);
-            $(this).parent().parent().parent().find('input[type="text"]').val(arr.join());
-            $(this).parent().remove();
-            block = true;
-          });
-          $tagscontainer.find('.add-tag').before($e);
         }
       });
     }
