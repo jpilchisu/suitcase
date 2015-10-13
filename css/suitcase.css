@@ -231,6 +231,10 @@ tr:hover td {
     background-color: transparent;
 }
 
+td {
+  border: 1px solid #bbb;
+}
+
 @media print {
     a {
         color: blue;
