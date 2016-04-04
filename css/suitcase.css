@@ -1113,6 +1113,8 @@ nav.navigation .secondary-menu>li a.active-trail {
     /*-moz-box-shadow: 0 0.3em 0.4em rgba(0, 0, 0, 0.5);*/
     /*box-shadow: 0 0.3em 0.4em rgba(0, 0, 0, 0.5);*/
     margin: 0;
+    background: none;
+    box-shadow: none;
 }
 
 .flexslider .flex-caption {
@@ -1834,4 +1836,13 @@ html.js input.form-autocomplete {
         margin-top: 0.5em;
         height: 1em;
     }
+}
+
+.text-muted,
+.text-muted a {
+    color: #888 !important;
+}
+
+.text-center {
+    text-align: center;
 }
