@@ -1,0 +1,21 @@
+/* Sets postscript zone's to defined height */
+.front div.zone-postscript  div.region-inner > section > div.block-inner div.content
+{
+/*      border:none; */
+        height:220px;
+        margin-bottom:10px;
+        overflow:scroll;
+        overflow-y: auto;
+        overflow-x: auto;
+	padding:5px 10px;
+}
+
+.front #flexslider-2.flexslider-processed
+{
+/*        height:330px;  */
+}
+
+.front div.zone-postscript
+{
+ margin-bottom:10px;
+}
