@@ -214,6 +214,11 @@ a, p, li, span, strong, em {
     color: #333;
 }
 
+a strong, a:link strong, a:hover strong, a:visited strong,
+a em, a:link em, a:hover em, a:visited em {
+    color: inherit;
+}
+
 ul {
     list-style-type: disc;
 }
@@ -236,8 +241,110 @@ tr:hover td {
 }
 
 @media print {
-    a {
-        color: blue;
+    /* Set background colors */
+    body,
+    div.page .section-header {
+        background-color: #fff;
+    }
+
+    div.page .node {
+        background-color: transparent;
+    }
+
+    /* Fonts */
+    body div.page .node {
+        font-family: Georgia, Palatino, Times, "Times New Roman", serif;
+        line-height: 24px;
+    }
+
+    /* Font colors */
+    div.page .site-slogan a,
+    div.page .site-slogan a:link,
+    div.page .site-slogan a:visited,
+    div.page .site-name a,
+    div.page .site-name a:link,
+    div.page .site-name a:visited,
+    div.page .title {
+        color: #000;
+        text-shadow: none;
+    }
+
+    div.page a,
+    div.page a:link,
+    div.page a:visited,
+    body div.page .node {
+        color: #333;
+    }
+
+    /* Font sizes */
+    body div.page .node {
+        font-size: 14px;
+    }
+
+    a, p, ul, ol, li, img, span, strong, em {
+        font-size: 18px;
+    }
+
+    /* Borders */
+    div.page .section-header,
+    div.page .zone-branding-wrapper,
+    div.page .title,
+    div.page .node {
+        border: none;
+    }
+
+    /* Hide elements */
+    .zone-menu-wrapper,
+    .zone-header-wrapper,
+    .zone-preface-wrapper,
+    .zone-side-menu-wrapper,
+    #breadcrumb,
+    .pwrapper,
+    .block-apachesolr-search,
+    .section-footer,
+    div.page .tabs,
+    .content-type-indicator,
+    .read-more,
+    aside {
+        display: none;
+    }
+
+    /* Box shadows */
+    div.page .node {
+        -webkit-box-shadow: transparent;
+        box-shadow: none;
+    }
+
+    /* Padding */
+    div.page .node {
+        padding: 0;
+    }
+
+    /* Field resets */
+    .field.field-type-taxonomy-term-reference .field-items>.field-item>a {
+      padding: 0;
+      display: inline;
+      border: none;
+    }
+
+    .nameplate img {
+      filter: invert(1);
+      filter: invert(100%);
+      -webkit-filter: invert(1);
+    }
+
+    table.views-view-grid td {
+      vertical-align: top;
+    }
+
+    .views-row,
+    img {
+        page-break-inside: avoid;
+    }
+
+    /* Break up lists of nodes a bit better */
+    div.page .views-row .node-title {
+        margin-top: 1.5em;
     }
 }
 
@@ -1125,7 +1232,7 @@ nav.navigation .secondary-menu>li a.active-trail {
     /*-webkit-box-shadow: 0 0.3em 0.4em rgba(0, 0, 0, 0.5);*/
     /*-moz-box-shadow: 0 0.3em 0.4em rgba(0, 0, 0, 0.5);*/
     /*box-shadow: 0 0.3em 0.4em rgba(0, 0, 0, 0.5);*/
-    margin: 0 0 1em;
+    margin: 0;
 }
 
 .flexslider .flex-caption {
@@ -1157,15 +1264,32 @@ nav.navigation .secondary-menu>li a.active-trail {
 
 .flex-control-nav {
     z-index: 2;
-    bottom: 0;
+    position: static;
+    margin-top: 10px;
 }
 
 /*////////////////////////////////////*/
 /* Panels */
-.panel-panel {
-    margin-bottom: 20px;
-    background-color: rgba(255, 255, 255, 0.7);
-    border: 1px solid #ddd;
+.panel-pane {
+  margin-bottom: 20px;
+}
+
+.panel-pane:not(.panel-pane-nostyle) {
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+/* Enable overflow on panes specifically set to have it */
+.panel-pane-overflow .pane-content {
+  height: 350px;
+  overflow-y: auto;
+}
+
+/* Enable overflow on front panel panes of width 4 unless specifically disabled */
+.front .grid-4 .panel-pane:not(.panel-pane-fluidheight) .pane-content {
+    height: 350px;
+    overflow-y: auto;
 }
 
 .front .panel-display .panel-panel:first-child {
@@ -1173,16 +1297,29 @@ nav.navigation .secondary-menu>li a.active-trail {
     border: 0;
 }
 
-.panel-panel.grid-4 .pane-content > p {
-    padding: 0 10px;
+.panel-pane-padding .pane-content {
+    padding: 10px;
+}
+
+/* Override padding for #front-panel */
+#front-panel .panel-panel.grid-12:first-child .pane-content {
+    padding: 0;
 }
 
 .panel-panel .pane-content p:first-child {
     padding-top: 10px;
 }
 
+.panel-panel.alpha {
+    margin-left: 1%;
+}
+
 .panel-panel .view .views-row {
     margin: 0;
+}
+
+.panel-panel .views-view-grid {
+    border: none;
 }
 
 .panel-pane > h2.pane-title {
@@ -1193,20 +1330,16 @@ nav.navigation .secondary-menu>li a.active-trail {
     border-bottom: 4px solid #DFBD00;
 }
 
-.panel-panel.grid-4 .pane-content .views-row,
-.panel-panel.grid-4 .pane-content .node {
+.panel-panel .pane-content .views-row,
+.panel-panel .pane-content .node {
     padding: 10px;
 }
 
-.panel-panel.grid-4 .pane-content .node {
+.panel-panel .pane-content .node {
     background: none;
     border: none;
     box-shadow: none;
     -webkit-box-shadow: none;
-}
-
-.panel-panel.grid-4 .pane-content .views-row:not(.views-row-last) {
-    border-bottom: 1px solid #ddd;
 }
 
 .panel-panel.grid-4 .pane-content li {
@@ -1219,19 +1352,15 @@ nav.navigation .secondary-menu>li a.active-trail {
     display: block;
 }
 
-.panel-panel.grid-4 .pane-content li:not(:last-child) > a {
-    border-bottom: 1px solid #ddd;
-}
-
-.panel-panel.grid-4 .more-link {
+.panel-panel .more-link {
     text-align: left;
 }
 
-.panel-panel.grid-4 .more-link > a {
+.panel-panel .more-link > a {
     padding: 10px 16px;
 }
 
-.panel-panel.grid-4 .views-field-title {
+.panel-panel .views-field-title {
     font-weight: bold;
 }
 
@@ -1241,11 +1370,6 @@ nav.navigation .secondary-menu>li a.active-trail {
 
 .front .view-about-front-page .field-content li {
     margin-left: 20px;
-}
-
-.front .grid-4 .pane-content {
-  height: 350px;
-  overflow-y: auto;
 }
 
 .panel-panel iframe {
@@ -1598,7 +1722,7 @@ html.js input.form-autocomplete {
     background: #f4f3e8;
 }
 
-.iecomp .panel-panel.grid-4 {
+.iecomp .panel-panel {
     background: #fcfcf9;
 }
 
@@ -1859,3 +1983,41 @@ figure figcaption {
 figure .insert-default-image-styling + figcaption {
     margin: 0 10px;
 }
+
+/*-----Help Text-----*/
+
+.filter-guidelines-wysiwyg .tips,
+.form-item .description {
+  font-size: 1em;
+  color: #000;
+}
+
+/*-----Font Awesome-----*/
+
+a > .fa {
+    margin-right: 10px;
+}
+
+.menu a > i {
+    font-size: 24px;
+    vertical-align: bottom;
+    margin-right: 10px;
+}
+
+/*-----Read More-----*/
+
+.read-more {
+    display: block;
+}
+
+/*----- Hero Regions -----*/
+
+#zone-menu-wrapper + .zone-hero-header .region-hero-header,
+#zone-menu + .zone-hero-header .region-hero-header {
+    margin-top: -16px;
+}
+
+.region-hero {
+    padding-bottom: 16px;
+}
+
